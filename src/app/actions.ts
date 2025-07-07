@@ -7,25 +7,24 @@ import {
 import { suggestProcessImprovement } from '@/ai/flows/suggest-process-improvement';
 
 function getErrorMessage(error: unknown): string {
+  // Log the full error to the server console for debugging
   console.error('An error occurred:', error);
+
+  // If it's a standard Error object, provide detailed info
   if (error instanceof Error) {
-    if (error.message) {
-      if (/API key not valid/i.test(error.message)) {
-        return 'Failed to call the AI model. The Google API Key seems to be invalid. Please verify the key in Google AI Studio and update the GOOGLE_API_KEY secret.';
-      }
-      if (/permission denied/i.test(error.message) && /billing/i.test(error.message)) {
-        return 'Billing is not enabled for this project. Please go to the Google Cloud Console, enable billing for the "business-website-deployer" project, and try again.';
-      }
-      if (/permission denied/i.test(error.message)) {
-        return 'The application does not have permission to access the required Google Cloud service (e.g., Secret Manager or the AI API). Please check the IAM permissions in the Google Cloud Console.';
-      }
-      return error.message;
-    }
+    return `[${error.name}] ${error.message}\n\nStack Trace:\n${error.stack}`;
   }
+
+  // If it's not an Error object, try to serialize it to JSON
   try {
-    return `A non-standard error occurred: ${JSON.stringify(error, null, 2)}`;
-  } catch {
-    return 'An unknown and non-serializable error occurred. Please check the server logs for more details.';
+    return `An unexpected error occurred. Full error details:\n\n${JSON.stringify(
+      error,
+      null,
+      2
+    )}`;
+  } catch (e) {
+    // If serialization fails (e.g., circular references)
+    return `An unknown and non-serializable error occurred. Please check the server logs for the full error object.`;
   }
 }
 
