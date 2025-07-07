@@ -48,11 +48,14 @@ export default function CheckSecretPage() {
               </>
             ) : (
               <>
-                <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
-                <h3 className="text-xl font-semibold text-red-500">Failed</h3>
-                <p className="text-muted-foreground text-center mt-2">
-                  {errorMessage || 'An unknown error occurred.'}
-                </p>
+                <AlertCircle className="h-16 w-16 text-destructive mb-4" />
+                <h3 className="text-xl font-semibold text-destructive">Failed</h3>
+                 <div className="mt-4 w-full text-left bg-destructive/5 border border-destructive/20 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-destructive mb-2">Error Details:</p>
+                  <p className="text-sm text-destructive whitespace-pre-wrap font-mono break-all">
+                    {errorMessage || 'An unknown error occurred.'}
+                  </p>
+                </div>
               </>
             )}
           </div>
