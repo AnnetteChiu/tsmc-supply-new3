@@ -12,6 +12,8 @@ function getErrorMessage(error: unknown): string {
     if (/API key not valid|permission denied|billing/i.test(error.message)) {
       return 'Failed to call the AI model. The Google API Key seems to be invalid, not enabled, or missing billing information. Please verify your setup in the Google Cloud Console and check the `/check-secret` page.';
     }
+    // For other errors, return the actual message for better debugging.
+    return `An unexpected error occurred: ${error.message}`;
   }
   return 'An unexpected error occurred. Please try again.';
 }
