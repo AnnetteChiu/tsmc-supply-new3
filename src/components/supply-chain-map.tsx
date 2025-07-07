@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Factory, Truck, Warehouse, ChevronRight, Cpu } from 'lucide-react';
+import { Factory, Truck, Warehouse, ChevronRight, Cpu, Microchip } from 'lucide-react';
 import type { SupplyChainNode } from '@/types';
 import SummarySidebar from './summary-sidebar';
 import { cn } from '@/lib/utils';
@@ -12,26 +12,33 @@ const supplyChainNodes: SupplyChainNode[] = [
     id: 'supplier',
     title: 'Raw Material Supplier',
     Icon: Truck,
-    details: 'High-purity silicon wafers and critical chemicals are sourced from specialized suppliers. Material purity is paramount for semiconductor manufacturing.',
-    data: 'Silicon Wafer Purity: 99.9999999%, On-time delivery: 98%, Key Supplier: Shin-Etsu Chemical.',
+    details: 'High-purity silicon wafers and critical chemicals are sourced from specialized suppliers in Japan. Material purity is paramount for semiconductor manufacturing.',
+    data: 'Silicon Wafer Purity: 99.9999999%, On-time delivery: 98%, Key Supplier: Shin-Etsu Chemical (Japan).',
   },
   {
-    id: 'foundry',
-    title: 'TSMC (Foundry)',
+    id: 'jasm',
+    title: 'JASM (Kumamoto)',
     Icon: Factory,
-    details: 'Wafers are fabricated at TSMC foundries using advanced process nodes. This is a highly complex and capital-intensive stage involving photolithography.',
-    data: 'Process Node: 3nm, Wafer Starts: 120,000/month, Yield Rate: ~90%, Cycle Time: 90-120 days.',
+    details: 'Wafers are fabricated at Japan Advanced Semiconductor Manufacturing (JASM), a TSMC-led joint venture in Kumamoto, Japan. Focuses on mature and advanced specialty process nodes.',
+    data: 'Process Nodes: 12/16nm, 22/28nm FinFET. Capacity: 55,000 wafers/month. Key partners: Sony, Denso.',
+  },
+  {
+    id: 'packaging-center',
+    title: 'Packaging R&D (Ibaraki)',
+    Icon: Microchip,
+    details: "TSMC's 3DIC R&D Center in Ibaraki, Japan, focuses on developing cutting-edge 3D integrated circuit packaging technologies.",
+    data: 'Focus: CoWoS, InFO, and SoIC packaging. Collaboration: Works with Japanese material and equipment suppliers.',
   },
   {
     id: 'osat',
     title: 'OSAT (Assembly/Test)',
     Icon: Warehouse,
-    details: 'Outsourced Assembly and Test (OSAT) partners package the fabricated dies and perform final testing before shipment.',
+    details: 'Outsourced Assembly and Test (OSAT) partners, some located in Japan, package the fabricated dies and perform final testing before shipment.',
     data: 'Packaging Type: Flip-chip, Test Escape Rate: <100 DPPM, Key Partner: ASE Technology.',
   },
   {
     id: 'distributor',
-    title: 'Logistics',
+    title: 'Global Logistics',
     Icon: Truck,
     details: 'Finished chips are distributed globally to Original Equipment Manufacturers (OEMs) and other customers through secure logistics channels.',
     data: 'Avg. Delivery Time: 7 days, On-time fulfillment: 99.5%, Key Partner: FedEx, DHL.',
@@ -40,8 +47,8 @@ const supplyChainNodes: SupplyChainNode[] = [
     id: 'customer',
     title: 'OEM/Fabless Customer',
     Icon: Cpu,
-    details: 'Companies like Apple, NVIDIA, and AMD integrate the finished chips into their final products (e.g., smartphones, GPUs).',
-    data: 'Key Customers: Apple, NVIDIA, AMD, Qualcomm. End Products: iPhones, GeForce GPUs, Ryzen CPUs.',
+    details: 'Companies like Sony (for image sensors) and automotive manufacturers integrate chips from Japanese fabs into their products.',
+    data: 'Key Customers: Sony, Renesas, Toyota, Denso. End Products: CMOS Image Sensors, Automotive MCUs.',
   },
 ];
 
@@ -63,9 +70,9 @@ export default function SupplyChainMap() {
   return (
     <>
       <div className="w-full">
-        <h2 className="text-3xl font-bold font-headline text-center mb-2">Semiconductor Supply Chain</h2>
+        <h2 className="text-3xl font-bold font-headline text-center mb-2">Semiconductor Supply Chain (Japan Focus)</h2>
         <p className="text-muted-foreground text-center mb-8">Click on any stage to generate an AI-powered summary.</p>
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0 flex-wrap">
           {supplyChainNodes.map((node, index) => (
             <div key={node.id} className="contents">
               <Card
