@@ -5,17 +5,20 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 import { generateSummaryAction } from '@/app/actions';
 import type { SupplyChainNode } from '@/types';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from './ui/separator';
+import type { ChartConfig } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 interface SummarySidebarProps {
   open: boolean;
@@ -29,6 +32,13 @@ const summaryFormSchema = z.object({
 });
 
 type SummaryFormValues = z.infer<typeof summaryFormSchema>;
+
+const chartConfig = {
+  value: {
+    label: 'Value',
+    color: 'hsl(var(--accent))',
+  },
+} satisfies ChartConfig;
 
 export default function SummarySidebar({ open, onOpenChange, node }: SummarySidebarProps) {
   const [loading, setLoading] = useState(false);
@@ -113,20 +123,66 @@ export default function SummarySidebar({ open, onOpenChange, node }: SummarySide
                 </Button>
               </form>
             </Form>
-            
+
+            {node?.chartData && node.chartTitle && (
+              <>
+                <Separator className="my-8" />
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="font-headline text-xl">Key Metrics</CardTitle>
+                    <CardDescription>{node.chartTitle}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pl-2">
+                    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+                      <BarChart
+                        accessibilityLayer
+                        data={node.chartData}
+                        margin={{
+                          top: 5,
+                          right: 10,
+                          left: -10,
+                          bottom: 5,
+                        }}
+                      >
+                        <CartesianGrid vertical={false} />
+                        <XAxis
+                          dataKey="name"
+                          tickLine={false}
+                          tickMargin={10}
+                          axisLine={false}
+                          tickFormatter={(value) => value.slice(0, 10)}
+                        />
+                        <YAxis tickFormatter={(value) => `${value}${node.chartUnit || ''}`} />
+                        <ChartTooltip
+                          cursor={false}
+                          content={
+                            <ChartTooltipContent
+                              labelClassName="font-bold"
+                              formatter={(value) => `${value.toLocaleString()}${node.chartUnit || ''}`}
+                            />
+                          }
+                        />
+                        <Bar dataKey="value" fill="var(--color-value)" radius={4} />
+                      </BarChart>
+                    </ChartContainer>
+                  </CardContent>
+                </Card>
+              </>
+            )}
+
             {(loading || summary) && <Separator className="my-8" />}
 
             {loading && (
-               <div className="space-y-4">
-                 <div className="h-4 bg-muted rounded w-1/4 animate-pulse"></div>
-                 <div className="space-y-2">
-                   <div className="h-4 bg-muted rounded w-full animate-pulse"></div>
-                   <div className="h-4 bg-muted rounded w-full animate-pulse"></div>
-                   <div className="h-4 bg-muted rounded w-3/4 animate-pulse"></div>
-                 </div>
-               </div>
+              <div className="space-y-4">
+                <div className="h-4 bg-muted rounded w-1/4 animate-pulse"></div>
+                <div className="space-y-2">
+                  <div className="h-4 bg-muted rounded w-full animate-pulse"></div>
+                  <div className="h-4 bg-muted rounded w-full animate-pulse"></div>
+                  <div className="h-4 bg-muted rounded w-3/4 animate-pulse"></div>
+                </div>
+              </div>
             )}
-            
+
             {summary && (
               <Card className="bg-background">
                 <CardHeader>
