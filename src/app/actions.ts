@@ -39,3 +39,23 @@ export async function suggestImprovementAction(data: GenerateSupplyChainSummaryI
     return { suggestion: null, error: getErrorMessage(error) };
   }
 }
+
+export async function checkApiKeyAction(): Promise<{
+  success: boolean;
+  error: string | null;
+}> {
+  // The GOOGLE_API_KEY is checked implicitly when any genkit flow is called.
+  // We can just call one of the existing flows with test data.
+  // This will validate the entire stack: secret loading, key validity, billing, and API enablement.
+  try {
+    const result = await generateSupplyChainSummary({ linkDetails: "This is a test to validate the API key." });
+    if (result.summary) {
+        return { success: true, error: null };
+    }
+    // This case should not be hit if the API call is successful,
+    // but we include it for completeness.
+    return { success: false, error: 'AI model returned an empty response.' };
+  } catch (error) {
+    return { success: false, error: getErrorMessage(error) };
+  }
+}
