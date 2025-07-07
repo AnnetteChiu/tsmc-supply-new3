@@ -23,6 +23,13 @@ const supplyChainNodes: SupplyChainNode[] = [
     data: 'Process Nodes: 12/16nm, 22/28nm FinFET. Capacity: 55,000 wafers/month. Key partners: Sony, Denso.',
   },
   {
+    id: 'tsmc-arizona',
+    title: 'TSMC Arizona',
+    Icon: Factory,
+    details: 'TSMC is building advanced fabrication plants in Phoenix, Arizona, to serve US-based customers and strengthen the local semiconductor ecosystem. The first fab will focus on 5nm process technology.',
+    data: 'Process Node: 5nm & 3nm announced. Investment: Over $65 Billion. Location: Phoenix, Arizona.',
+  },
+  {
     id: 'packaging-center',
     title: 'Packaging R&D (Ibaraki)',
     Icon: Microchip,
@@ -47,8 +54,8 @@ const supplyChainNodes: SupplyChainNode[] = [
     id: 'customer',
     title: 'OEM/Fabless Customer',
     Icon: Cpu,
-    details: 'Companies like Sony (for image sensors) and automotive manufacturers integrate chips from Japanese fabs into their products.',
-    data: 'Key Customers: Sony, Renesas, Toyota, Denso. End Products: CMOS Image Sensors, Automotive MCUs.',
+    details: "Global tech giants and automotive leaders integrate TSMC's advanced chips into their products, from smartphones to cars.",
+    data: 'Key Customers: Apple, NVIDIA, AMD, Qualcomm. End Products: CPUs, GPUs, SoCs, Automotive ICs.',
   },
 ];
 
@@ -70,8 +77,8 @@ export default function SupplyChainMap() {
   return (
     <>
       <div className="w-full">
-        <h2 className="text-3xl font-bold font-headline text-center mb-2">Semiconductor Supply Chain (Japan Focus)</h2>
-        <p className="text-muted-foreground text-center mb-8">Click on any stage to generate an AI-powered summary.</p>
+        <h2 className="text-3xl font-bold font-headline text-center mb-2">TSMC Global Semiconductor Supply Chain</h2>
+        <p className="text-muted-foreground text-center mb-8">A look at TSMC's key manufacturing and R&D sites in Japan and the USA. Click a stage for an AI summary.</p>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0 flex-wrap">
           {supplyChainNodes.map((node, index) => (
             <div key={node.id} className="contents">
