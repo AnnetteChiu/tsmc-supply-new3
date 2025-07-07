@@ -16,6 +16,13 @@ const supplyChainNodes: SupplyChainNode[] = [
     data: 'Silicon Wafer Purity: 99.9999999%, On-time delivery: 98%, Key Supplier: Shin-Etsu Chemical (Japan).',
   },
   {
+    id: 'tsmc-hsinchu',
+    title: 'TSMC HQ (Hsinchu)',
+    Icon: Factory,
+    details: "TSMC's headquarters in Hsinchu, Taiwan, is the heart of its R&D and home to its most advanced process technologies, including 3nm and the development of 2nm.",
+    data: 'Process Nodes: 5nm, 3nm, 2nm (R&D). Location: Hsinchu Science Park, Taiwan.',
+  },
+  {
     id: 'jasm',
     title: 'JASM (Kumamoto)',
     Icon: Factory,
@@ -85,7 +92,7 @@ export default function SupplyChainMap() {
     <>
       <div className="w-full">
         <h2 className="text-3xl font-bold font-headline text-center mb-2">TSMC Global Semiconductor Supply Chain</h2>
-        <p className="text-muted-foreground text-center mb-8">A look at TSMC's key manufacturing and R&D sites in Japan, the USA, and China. Click a stage for an AI summary.</p>
+        <p className="text-muted-foreground text-center mb-8">A look at TSMC's key manufacturing and R&D sites in Taiwan, Japan, the USA, and China. Click a stage for an AI summary.</p>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0 flex-wrap">
           {supplyChainNodes.map((node, index) => (
             <div key={node.id} className="contents">
