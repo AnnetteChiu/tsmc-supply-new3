@@ -30,6 +30,13 @@ const supplyChainNodes: SupplyChainNode[] = [
     data: 'Process Node: 5nm & 3nm announced. Investment: Over $65 Billion. Location: Phoenix, Arizona.',
   },
   {
+    id: 'tsmc-nanjing',
+    title: 'TSMC Nanjing',
+    Icon: Factory,
+    details: 'TSMC Nanjing is a wholly-owned subsidiary of TSMC, operating a 12-inch fab in Nanjing, China. It focuses on 16nm and 28nm process technologies to serve the local market.',
+    data: 'Process Nodes: 16nm, 28nm. Location: Nanjing, China. Status: Operational.',
+  },
+  {
     id: 'packaging-center',
     title: 'Packaging R&D (Ibaraki)',
     Icon: Microchip,
@@ -78,7 +85,7 @@ export default function SupplyChainMap() {
     <>
       <div className="w-full">
         <h2 className="text-3xl font-bold font-headline text-center mb-2">TSMC Global Semiconductor Supply Chain</h2>
-        <p className="text-muted-foreground text-center mb-8">A look at TSMC's key manufacturing and R&D sites in Japan and the USA. Click a stage for an AI summary.</p>
+        <p className="text-muted-foreground text-center mb-8">A look at TSMC's key manufacturing and R&D sites in Japan, the USA, and China. Click a stage for an AI summary.</p>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0 flex-wrap">
           {supplyChainNodes.map((node, index) => (
             <div key={node.id} className="contents">
