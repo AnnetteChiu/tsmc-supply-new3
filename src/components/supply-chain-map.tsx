@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Factory, Store, Truck, User, Warehouse, ChevronRight } from 'lucide-react';
+import { Factory, Truck, Warehouse, ChevronRight, Cpu } from 'lucide-react';
 import type { SupplyChainNode } from '@/types';
 import SummarySidebar from './summary-sidebar';
 import { cn } from '@/lib/utils';
@@ -10,38 +10,38 @@ import { cn } from '@/lib/utils';
 const supplyChainNodes: SupplyChainNode[] = [
   {
     id: 'supplier',
-    title: 'Supplier',
+    title: 'Raw Material Supplier',
     Icon: Truck,
-    details: 'Raw materials are sourced from various global suppliers and transported to manufacturing facilities. Key metrics include on-time delivery and material quality.',
-    data: 'On-time delivery rate: 95%, Defect rate: 0.5%, Average lead time: 14 days.',
+    details: 'High-purity silicon wafers and critical chemicals are sourced from specialized suppliers. Material purity is paramount for semiconductor manufacturing.',
+    data: 'Silicon Wafer Purity: 99.9999999%, On-time delivery: 98%, Key Supplier: Shin-Etsu Chemical.',
   },
   {
-    id: 'manufacturer',
-    title: 'Manufacturer',
+    id: 'foundry',
+    title: 'TSMC (Foundry)',
     Icon: Factory,
-    details: 'Raw materials are processed and assembled into finished goods. Production efficiency and quality control are critical at this stage.',
-    data: 'Production volume: 10,000 units/week, Overall Equipment Effectiveness (OEE): 85%, Scrap rate: 1.2%.',
+    details: 'Wafers are fabricated at TSMC foundries using advanced process nodes. This is a highly complex and capital-intensive stage involving photolithography.',
+    data: 'Process Node: 3nm, Wafer Starts: 120,000/month, Yield Rate: ~90%, Cycle Time: 90-120 days.',
+  },
+  {
+    id: 'osat',
+    title: 'OSAT (Assembly/Test)',
+    Icon: Warehouse,
+    details: 'Outsourced Assembly and Test (OSAT) partners package the fabricated dies and perform final testing before shipment.',
+    data: 'Packaging Type: Flip-chip, Test Escape Rate: <100 DPPM, Key Partner: ASE Technology.',
   },
   {
     id: 'distributor',
-    title: 'Distributor',
-    Icon: Warehouse,
-    details: 'Finished goods are stored in distribution centers before being shipped to retailers. Inventory management is key to preventing stockouts or overstock.',
-    data: 'Inventory turnover: 8.5, Average storage time: 42 days, Order fulfillment accuracy: 99.8%.',
-  },
-  {
-    id: 'retailer',
-    title: 'Retailer',
-    Icon: Store,
-    details: 'Products are displayed and sold to end customers through various retail channels, both online and physical.',
-    data: 'Weekly sales: 1,200 units, Stockout rate: 2.5%, Customer footfall: 5,000/week.',
+    title: 'Logistics',
+    Icon: Truck,
+    details: 'Finished chips are distributed globally to Original Equipment Manufacturers (OEMs) and other customers through secure logistics channels.',
+    data: 'Avg. Delivery Time: 7 days, On-time fulfillment: 99.5%, Key Partner: FedEx, DHL.',
   },
   {
     id: 'customer',
-    title: 'Customer',
-    Icon: User,
-    details: 'The end user who purchases and uses the product. Customer satisfaction and feedback are vital for product improvement and brand loyalty.',
-    data: 'Customer satisfaction score: 4.8/5, Return rate: 3%, Repeat purchase rate: 45%.',
+    title: 'OEM/Fabless Customer',
+    Icon: Cpu,
+    details: 'Companies like Apple, NVIDIA, and AMD integrate the finished chips into their final products (e.g., smartphones, GPUs).',
+    data: 'Key Customers: Apple, NVIDIA, AMD, Qualcomm. End Products: iPhones, GeForce GPUs, Ryzen CPUs.',
   },
 ];
 
@@ -63,7 +63,7 @@ export default function SupplyChainMap() {
   return (
     <>
       <div className="w-full">
-        <h2 className="text-3xl font-bold font-headline text-center mb-2">Supply Chain Flow</h2>
+        <h2 className="text-3xl font-bold font-headline text-center mb-2">Semiconductor Supply Chain</h2>
         <p className="text-muted-foreground text-center mb-8">Click on any stage to generate an AI-powered summary.</p>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0">
           {supplyChainNodes.map((node, index) => (
